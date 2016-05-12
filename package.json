@@ -1,10 +1,10 @@
 {
-  "name": "html-parse-stringify",
+  "name": "html-parse-stringify2",
   "description": "Parses well-formed HTML (meaning all tags closed) into an AST and back. quickly.",
   "version": "1.0.2",
-  "author": "Henrik Joreteg <henrik@andyet.net>",
+  "author": "Ray Di Ciaccio <ray.diciaccio@gmail.com>",
   "bugs": {
-    "url": "https://github.com/henrikjoreteg/html-parse-stringify/issues"
+    "url": "https://github.com/rayd/html-parse-stringify2/issues"
   },
   "dependencies": {
     "void-elements": "^1.0.0"
@@ -18,7 +18,7 @@
     "tape": "^3.0.3",
     "zuul": "^1.16.5"
   },
-  "homepage": "https://github.com/henrikjoreteg/html-parse-stringify",
+  "homepage": "https://github.com/rayd/html-parse-stringify2",
   "keywords": [
     "html",
     "parse",
@@ -29,7 +29,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/henrikjoreteg/html-parse-stringify"
+    "url": "https://github.com/rayd/html-parse-stringify2"
   },
   "scripts": {
     "start": "run-browser test/*",
