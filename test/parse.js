@@ -372,6 +372,36 @@ test('parse', function (t) {
         voidElement: false,
         children: []
     }], 'should remove text nodes that are nothing but whitespace');
+
+    html = '<!--\n\t<style type="text/css">\n\t\t.header {\n\t\t\tfont-size: 14px;\n\t\t}\n\t</style>\n\n-->\n<div>Hi</div>';
+    parsed = HTML.parse(html);
+    t.deepEqual(parsed, [{
+        type: 'tag',
+        name: 'div',
+        attrs: {},
+        voidElement: false,
+        children: [
+            { type: 'text', content: 'Hi'}
+        ]
+    }], 'should ignore HTML comments');
+
+    html = '<div>Hi <!-- I\'m a nested comment! with a <span></span> --></div><span><!--test--></span>';
+    parsed = HTML.parse(html);
+    t.deepEqual(parsed, [{
+        type: 'tag',
+        name: 'div',
+        attrs: {},
+        voidElement: false,
+        children: [
+            { type: 'text', content: 'Hi '}
+        ]
+    },{
+        type: 'tag',
+        name: 'span',
+        attrs: {},
+        voidElement: false,
+        children: []
+    }], 'should ignore nested HTML comments');
     t.end();
 });
 
