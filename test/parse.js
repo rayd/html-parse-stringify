@@ -347,7 +347,7 @@ test('parse', function (t) {
         type: 'text', content: 'else '
     }], 'should handle text nodes in the middle of tags at the top-level');
 
-    html = '<div>Hi</div>\n\n <span>There</span> \t ';
+    html = '<div>Hi</div>\n\n <span>There</span> \t <iframe>\n\t</iframe>';
     parsed = HTML.parse(html);
     t.deepEqual(parsed, [{
         type: 'tag',
@@ -365,6 +365,12 @@ test('parse', function (t) {
         children: [
             { type: 'text', content: 'There' }
         ]
+    },{
+        type: 'tag',
+        name: 'iframe',
+        attrs: {},
+        voidElement: false,
+        children: []
     }], 'should remove text nodes that are nothing but whitespace');
     t.end();
 });
