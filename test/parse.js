@@ -366,6 +366,18 @@ test('parse', function (t) {
             { type: 'text', content: 'There' }
         ]
     }], 'should remove text nodes that are nothing but whitespace');
+
+    html = '<!--\n\t<style type="text/css">\n\t\t.header {\n\t\t\tfont-size: 14px;\n\t\t}\n\t</style>\n\n-->\n<div>Hi</div>';
+    parsed = HTML.parse(html);
+    t.deepEqual(parsed, [{
+        type: 'tag',
+        name: 'div',
+        attrs: {},
+        voidElement: false,
+        children: [
+            { type: 'text', content: 'Hi'}
+        ]
+    }], 'should ignore HTML comments');
     t.end();
 });
 
