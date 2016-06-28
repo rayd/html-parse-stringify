@@ -385,7 +385,7 @@ test('parse', function (t) {
         ]
     }], 'should ignore HTML comments');
 
-    html = '<div>Hi <!-- I\'m a nested comment! with a <span></span> --></div><span><!--test--></span>';
+    html = '<div>Hi <!-- I\'m a nested comment! with a <span></span> -->there<strong>!</strong></div><span><!--test--></span>';
     parsed = HTML.parse(html);
     t.deepEqual(parsed, [{
         type: 'tag',
@@ -393,7 +393,15 @@ test('parse', function (t) {
         attrs: {},
         voidElement: false,
         children: [
-            { type: 'text', content: 'Hi '}
+            { type: 'text', content: 'Hi '},
+            { type: 'text', content: 'there'},
+            {
+                type: 'tag',
+                name: 'strong',
+                attrs: {},
+                voidElement: false,
+                children: [{ type: 'text', content: '!'}]
+            }
         ]
     },{
         type: 'tag',
