@@ -66,6 +66,19 @@ test('parseTag', function (t) {
         voidElement: false,
         children: []
     });
+    
+    tag = '<textarea placeholder=\'Hey Usher, \n\nAre these modals for real?!\' class=\'placeholder-value\'>';
+
+    t.deepEqual(parseTag(tag), {
+        type: 'tag',
+        attrs: {
+            placeholder: 'Hey Usher, \n\nAre these modals for real?!',
+            class: 'placeholder-value'
+        },
+        name: 'textarea',
+        voidElement: false,
+        children: []
+    });
 
     t.end();
 });
