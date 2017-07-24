@@ -338,6 +338,10 @@ test('parse', function (t) {
             { type: 'text', content: 'something' }
         ]
     },{
+        type: 'text',
+        content: ' '
+    },
+    {
         type: 'tag',
         name: 'a',
         attrs: {},
@@ -347,8 +351,66 @@ test('parse', function (t) {
         type: 'text', content: 'else '
     }], 'should handle text nodes in the middle of tags at the top-level');
 
-    html = '<div>Hi</div>\n\n <span>There</span> \t <iframe>\n\t</iframe>';
+    html = '\n<div>  <span>Hi!</span> </div>\n';
     parsed = HTML.parse(html);
+    t.deepEqual(parsed, [{
+        type: 'tag',
+        name: 'div',
+        attrs: {},
+        voidElement: false,
+        children: [
+            { type: 'text', content: ' '},
+            {
+                type: 'tag',
+                name: 'span',
+                attrs: {},
+                voidElement: false,
+                children: [
+                    { type: 'text', content: 'Hi!' }
+                ]
+            },
+            { type: 'text', content: ' '}
+        ]
+    }], 'should trim whitespace from the beginning and end of the parsed nodes');
+
+    html = '<div>Hi</div>\n\n <span>There</span> \t <div>\n\t</div>';
+    parsed = HTML.parse(html);
+    t.deepEqual(parsed, [{
+        type: 'tag',
+        name: 'div',
+        attrs: {},
+        voidElement: false,
+        children: [
+            { type: 'text', content: 'Hi' }
+        ]
+    },{
+        type: 'text',
+        content: ' '
+    },
+    {
+        type: 'tag',
+        name: 'span',
+        attrs: {},
+        voidElement: false,
+        children: [
+            { type: 'text', content: 'There' }
+        ]
+    },{
+        type: 'text',
+        content: ' '
+    },{
+        type: 'tag',
+        name: 'div',
+        attrs: {},
+        voidElement: false,
+        children: [
+            { type: 'text', content: ' ' }
+        ]
+    }], 'should collapse whitespace');
+    // See https://www.w3.org/TR/html4/struct/text.html#h-9.1
+
+    html = '<div>Hi</div>\n\n <span>There</span> \t <iframe>\n\t</iframe>';
+    parsed = HTML.parse(html, { ignoreWhitespace: true });
     t.deepEqual(parsed, [{
         type: 'tag',
         name: 'div',
@@ -371,7 +433,7 @@ test('parse', function (t) {
         attrs: {},
         voidElement: false,
         children: []
-    }], 'should remove text nodes that are nothing but whitespace');
+    }], 'should remove text nodes that are nothing but whitespace if the ignoreWhitespace option is passed');
 
     html = '<!--\n\t<style type="text/css">\n\t\t.header {\n\t\t\tfont-size: 14px;\n\t\t}\n\t</style>\n\n-->\n<div>Hi</div>';
     parsed = HTML.parse(html);
