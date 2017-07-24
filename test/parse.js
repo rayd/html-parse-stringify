@@ -472,6 +472,13 @@ test('parse', function (t) {
         voidElement: false,
         children: []
     }], 'should ignore nested HTML comments');
+
+    html = 'Hello, world!';
+    parsed = HTML.parse(html);
+    t.deepEqual(parsed, [{
+        type: 'text',
+        content: 'Hello, world!'
+    }], 'should handle just text');
     t.end();
 });
 
