@@ -66,7 +66,7 @@ test('parseTag', function (t) {
         voidElement: false,
         children: []
     });
-    
+
     tag = '<textarea placeholder=\'Hey Usher, \n\nAre these modals for real?!\' class=\'placeholder-value\'>';
 
     t.deepEqual(parseTag(tag), {
@@ -77,6 +77,20 @@ test('parseTag', function (t) {
         },
         name: 'textarea',
         voidElement: false,
+        children: []
+    });
+
+    tag = '<input checked name="sad" type="checkbox">';
+
+    t.deepEqual(parseTag(tag), {
+        type: 'tag',
+        attrs: {
+            type: 'checkbox',
+            checked: 'checked',
+            name: 'sad'
+        },
+        name: 'input',
+        voidElement: true,
         children: []
     });
 
