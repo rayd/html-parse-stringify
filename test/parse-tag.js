@@ -94,5 +94,44 @@ test('parseTag', function (t) {
         children: []
     });
 
+    tag = '<link checked name="sad">';
+
+    t.deepEqual(parseTag(tag, true), {
+        type: 'tag',
+        attrs: {
+            checked: 'checked',
+            name: 'sad'
+        },
+        name: 'link',
+        voidElement: false,
+        children: []
+    });
+
+    tag = '<link checked name="sad" />';
+
+    t.deepEqual(parseTag(tag, true), {
+        type: 'tag',
+        attrs: {
+            checked: 'checked',
+            name: 'sad'
+        },
+        name: 'link',
+        voidElement: true,
+        children: []
+    });
+
+    tag = '<link checked name="sad">';
+
+    t.deepEqual(parseTag(tag, false), {
+        type: 'tag',
+        attrs: {
+            checked: 'checked',
+            name: 'sad'
+        },
+        name: 'link',
+        voidElement: true,
+        children: []
+    });
+
     t.end();
 });
