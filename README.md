@@ -54,7 +54,7 @@ Takes a string of HTML and turns it into an AST.
 ### `options`
 
 * `components`: object of registered components whose children will be ignored when generating the AST. (defaults to `{}`)
-* `ignoreVoidElements`: boolean value to ignore void elements (defaults to `false`)
+* `ignoreVoidElements`: boolean value to avoid treating void elements as void elements (i.e. they're allowed to have children) (defaults to `false`)
 
 ## `.stringify(AST)`
 
