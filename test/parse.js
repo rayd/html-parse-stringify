@@ -534,3 +534,20 @@ test('simple speed sanity check', function (t) {
 
     t.end();
 });
+
+test('ReDoS vulnerability reported by Sam Sanoop of Snyk', function (t) {
+    var start = Date.now();
+    // reported problematic string
+    /*jshint -W110 */
+    HTML.parse(
+        "<!''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''!"
+    );
+    // other variant
+    HTML.parse(
+        '<!""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""!'
+    );
+    var duration = Date.now() - start;
+
+    t.ok(duration < 100, 'should not hang');
+    t.end();
+});

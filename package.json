@@ -7,7 +7,7 @@
     "url": "https://github.com/rayd/html-parse-stringify2/issues"
   },
   "dependencies": {
-    "void-elements": "^2.0.1"
+    "void-elements": "^3.1.0"
   },
   "devDependencies": {
     "jshint": "^2.5.10",
